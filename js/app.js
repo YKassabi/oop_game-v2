@@ -1,10 +1,11 @@
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * app.js */
+
+// eslint-disable-next-line
+const game = new Game;
 
 
-
-
+document.getElementById('btn__reset').addEventListener('click',() => {
+    game.startGame()
+})
 
 
 
@@ -12,10 +13,12 @@
 
 
 /////////////////////////////////////////////////////testing 
-// eslint-disable-next-line no-undef
-const phrase = new Phrase();
-// eslint-disable-next-line no-undef
-const game = new Game();
+// eslint-disable-next-line 
+const phrase = new Phrase("what ever I want!!!");
+// eslint-disable-next-line 
+// const gameForTesting = new Game();
 
-console.log(phrase);
-console.log(game);
+// console.log(phrase);
+// console.log(game.phrases[2]);
+
+// game.startGame();
