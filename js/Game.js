@@ -13,25 +13,14 @@ class Game {
      */
     createPhrases() {
         const listPhrases = [];
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
-        listPhrases.push('life is');
+        listPhrases.push('life is ');
         listPhrases.push('Well Done is Better Than Well Said');
         listPhrases.push('Art is an emotion in motion');
-        listPhrases.push('Planing is half the way');
+        listPhrases.push('Beauty is in the eye of the beholder');
         listPhrases.push('Where there is tears there is hope');
-
+        listPhrases.push('Live Long and Prosper');
+        listPhrases.push('Have you tried turning it off and on again');
+        listPhrases.push('veni vidi vici');
         return listPhrases;
 
     }
@@ -46,33 +35,46 @@ class Game {
     startGame() {
         document.getElementById('overlay').style.display = "none";
         this.activePhrase = this.getRandomPhrases();
-
-        console.log(this.activePhrase);
-
+        phrase = new Phrase(this.activePhrase);
         phrase.addPhraseToDisplay();
-    }
-
-    handleInteraction() {
-
+        /** 
+         * for corrector testing// will display the phrase on the console
+         */
+        console.log(phrase)
     }
     /**
-* Checks for winning move
-* @-return {boolean} True if game has been won, false if game wasn't
-won
-*/
+     * Handles onscreen keyboard button clicks
+     * @-param (HTMLButtonElement) button - The clicked button element
+     */
+
+    handleInteraction(button, htmlcode) {
+        // console.log(button);
+        // console.log(htmlcode);
+        htmlcode.disabled = true;
+        if (phrase.checkLetter(button)) {
+            htmlcode.classList.add('chosen');
+            phrase.showMatchedLetter(button);
+            this.checkForWin();
+
+        } else {
+            htmlcode.classList.add('wrong');
+            // the removeLife method will automatically call gameOver if player run out of life, that s the only way to loose.
+            this.removeLife();
+        }
+    }
+    /**
+    * Checks for winning move
+    * @-return {boolean} True if game has been won, false if game wasn't
+    won
+    */
     checkForWin() {
         // check if plyer has revealed all the letters in the active phrase
         let allLettersDOMELements = document.getElementsByClassName("letter");
         let shownLettersDOMELements = document.getElementsByClassName("show");
 
-        if(allLettersDOMELements.length === shownLettersDOMELements.length){
-            console.log('all is GOOD !!')
-            return true;
-        }else{
-            console.log(" :( ")
-            return false;
+        if (allLettersDOMELements.length === shownLettersDOMELements.length) {
+            this.gameOver(true);
         }
-
     }
     /**
      * Increases the value of the missed property
@@ -80,12 +82,9 @@ won
      * Checks if player has remaining lives and ends game if player is out
      */
     removeLife() {
-        // removing an image from gameboard `liveHeart.png and relacing it with lostHeart.png
-        // and increament the missed property, 5 missed in total
-        // console.log("_+_+_");
+
         const triesArray = document.getElementsByClassName('tries');
-        this.missed < 5 ? triesArray[this.missed].firstChild.src="/images/lostHeart.png" : this.gameOver();
-        // console.log(triesArray);
+        this.missed < 4 ? triesArray[this.missed].firstChild.src = "/images/lostHeart.png" : this.gameOver(false);
         this.missed += 1;
     }
     /**
@@ -96,23 +95,20 @@ won
         // will display the original start screen and update updates the overlay `h1` element with a
         // friendly win or loss message, and replaces the overlay’s `start` CSS class with
         // either the `win` or `lose` CSS class.
-        console.log("No more");
+
         document.getElementById('overlay').style.display = "block";
         let title = document.querySelector("#game-over-message");
         let backG = document.querySelector("#overlay")
-        if(bool){
-            title.innerHTML= "WOW NICE !! WELL DONE ";
+        if (bool) {
+            title.innerHTML = " NICE !! WELL DONE ";
             backG.style.background = "linear-gradient( 45deg, blue, red )"
 
-        }else{
-            title.innerHTML = " 🤪 Better luck next time !"
+        } else {
+            title.innerHTML = " 🤪 Best Luck next time !"
             backG.style.background = "linear-gradient( 45deg, black, white )"
         }
-        
     }
-
 }
-1
 
 
 

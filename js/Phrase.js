@@ -1,7 +1,3 @@
-/* eslint-disable no-undef */
-/* Treehouse FSJS Techdegree
- * Project 4 - OOP Game App
- * Phrase.js */
 // eslint-disable-next-line no-unused-vars
 class Phrase {
     constructor(phrase) {
@@ -11,12 +7,10 @@ class Phrase {
      * Display phrase on game board
      */
     addPhraseToDisplay() {
-        // const p = this.phrase;
-        let phraseToLetters = [...game.activePhrase];
+        let phraseToLetters = [...this.phrase];
         let htmlPhrase = ``;
         phraseToLetters.forEach((i) => {
             htmlPhrase += `<li class="hide ${i !== " " ? "letter": "space"} ${i}">${i}</li>`
-            // htmlPhrase += `<li class="hide "letter" ${i}"></li>`
         })
         document.getElementById('phrase').children[0].innerHTML = htmlPhrase;
     }
@@ -26,14 +20,13 @@ class Phrase {
      * @-param (string) letter - Letter to check
      */
     checkLetter(guessedletter) {
-        // checks to see if the letter selected matches a letter in the phrase
         let activePhr = game.activePhrase.toLowerCase();
         console.log('_+_+_');
         const phraseLetterArray = activePhr.split("").filter(i => i != " ");
-        // console.log(phraseLetterArrayRaw);
 
         let letterWasCheacked = phraseLetterArray.includes(guessedletter);
         console.log(letterWasCheacked);
+        return letterWasCheacked;
     }
     /**
      * Displays passed letter on screen after a match is found
@@ -46,9 +39,7 @@ class Phrase {
 
         let letterToBeShown = game.activePhrase.toLowerCase().split("").find(i => i === l);
         let listOfDOMElementLetters = document.getElementsByClassName(letterToBeShown);
-        // console.log(listOfDOMElementLetters);
         for (let i = 0; i < listOfDOMElementLetters.length; i++) {
-            // console.log(listOfDOMElementLetters[i]);
             listOfDOMElementLetters[i].className = "show letter " +  letterToBeShown;
         }
     }
