@@ -21,11 +21,9 @@ class Phrase {
      */
     checkLetter(guessedletter) {
         let activePhr = game.activePhrase.toLowerCase();
-        console.log('_+_+_');
         const phraseLetterArray = activePhr.split("").filter(i => i != " ");
 
         let letterWasCheacked = phraseLetterArray.includes(guessedletter);
-        console.log(letterWasCheacked);
         return letterWasCheacked;
     }
     /**

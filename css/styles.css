@@ -27,7 +27,7 @@ body {
   justify-content: space-evenly;
   flex-direction: column;
   display: flex;
-  height: 100vh;
+  /* height: 100vh; */
 }
 
 li, ol, ul {
@@ -201,4 +201,45 @@ button {
 
 .lose a {
   color: var(--color-lose);
+}
+
+/* custum css */
+.letterhint, .optionFun {
+  border-top: 1px dotted black;
+  background: linear-gradient(white, rgba(0,0,0,.4));
+  margin: 0 auto;
+  width: 50%;
+  float: left;
+  padding: 0px;
+  /* position: absolute; */
+  /* border: 3px solid red; */
+}
+
+.buttonHelp{
+  border: 2px solid #3a3f58;
+  height: 90px;
+  width: 90px;
+  border-radius: 60%;
+  position: fixed;
+  top:30%;
+  padding-top: 2%;
+  right: -30px;
+  text-align: center;
+  color: #3a3f58;
+  font-size: 1.5rem;
+}
+.buttonHelp>a, .buttonHelp>a:hover, .buttonHelp>a:visited {
+  text-decoration: none;
+  color: #3a3f58;
+}
+
+
+.buttonHelp:hover{
+  background-color: rgba(0, 0, 0, 0.945);
+  color: red;
+  cursor: pointer;
+  right: -3px;
+}
+.buttonHelp>a:hover{
+  color: red;
 }

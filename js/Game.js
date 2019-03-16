@@ -14,12 +14,12 @@ class Game {
     createPhrases() {
         const listPhrases = [];
         listPhrases.push('life is ');
-        listPhrases.push('Well Done is Better Than Well Said');
-        listPhrases.push('Art is an emotion in motion');
-        listPhrases.push('Beauty is in the eye of the beholder');
-        listPhrases.push('Where there is tears there is hope');
-        listPhrases.push('Live Long and Prosper');
-        listPhrases.push('Have you tried turning it off and on again');
+        // listPhrases.push('Well Done is Better Than Well Said');
+        // listPhrases.push('Art is an emotion in motion');
+        // listPhrases.push('Beauty is in the eye of the beholder');
+        // listPhrases.push('Where there is tears there is hope');
+        // listPhrases.push('Live Long and Prosper');
+        // listPhrases.push('Have you tried turning it off and on again');
         listPhrases.push('veni vidi vici');
         return listPhrases;
 
@@ -36,6 +36,8 @@ class Game {
         document.getElementById('overlay').style.display = "none";
         this.activePhrase = this.getRandomPhrases();
         phrase = new Phrase(this.activePhrase);
+        hint = new Hinthelp();//hinter section
+
         phrase.addPhraseToDisplay();
         /** 
          * for corrector testing// will display the phrase on the console
@@ -47,15 +49,25 @@ class Game {
      * @-param (HTMLButtonElement) button - The clicked button element
      */
 
-    handleInteraction(button, htmlcode) {
-        // console.log(button);
-        // console.log(htmlcode);
+    // handleInteraction(button, htmlcode) {
+    handleInteraction(button) {
+        ////
+        const arr = document.querySelectorAll('.key');
+        const trueArr = Array.prototype.slice.call(arr);
+        const reducer = {};
+        for (let i = 0; i < trueArr.length; i += 1) {
+            reducer[trueArr[i].firstChild.nodeValue] = i;
+        }
+        // console.log(reducer);
+        let htmlcode = document.querySelectorAll('.key')[reducer[button]];
+        // console.log(htmlcode)
+        
+        ////
         htmlcode.disabled = true;
         if (phrase.checkLetter(button)) {
             htmlcode.classList.add('chosen');
             phrase.showMatchedLetter(button);
             this.checkForWin();
-
         } else {
             htmlcode.classList.add('wrong');
             // the removeLife method will automatically call gameOver if player run out of life, that s the only way to loose.
@@ -68,7 +80,6 @@ class Game {
     won
     */
     checkForWin() {
-        // check if plyer has revealed all the letters in the active phrase
         let allLettersDOMELements = document.getElementsByClassName("letter");
         let shownLettersDOMELements = document.getElementsByClassName("show");
 
