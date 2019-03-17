@@ -103,7 +103,7 @@ class Game {
      */
     removeLife() {
         const triesArray = document.getElementsByClassName('tries');//the hearts dom element
-        this.missed < 4 ? triesArray[this.missed].firstChild.src = "../images/lostHeart.png" : this.gameOver(false);
+        this.missed < 4 ? triesArray[this.missed].firstChild.src = "images/lostHeart.png" : this.gameOver(false);
         this.missed += 1;
     }
 
