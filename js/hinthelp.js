@@ -5,7 +5,6 @@
 // simply cheat and reviel the phrase
 /////////////////////////////////////////////////////////////////////////////////////////
 class Hinthelp {
-
     /**
      * picked a random letter from raw phrase regardless if it  was already pick or not.
      */
