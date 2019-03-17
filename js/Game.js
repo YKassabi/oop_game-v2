@@ -1,9 +1,11 @@
-/* eslint-disable no-undef */
-// eslint-disable-next-line no-unused-vars
 class Game {
     constructor() {
         this.missed = 0;
-        this.phrases = this.createPhrases();
+        /** custum notes
+         * startGameWithCapitalCities bool & capitalList (array)
+         * definition on the api.js, 
+         */
+        this.phrases = startGameWithCapitalCities ? capitalList : this.createPhrases();
         this.activePhrase = null;
     }
 
@@ -14,55 +16,56 @@ class Game {
     createPhrases() {
         const listPhrases = [];
         listPhrases.push('life is ');
-        // listPhrases.push('Well Done is Better Than Well Said');
-        // listPhrases.push('Art is an emotion in motion');
-        // listPhrases.push('Beauty is in the eye of the beholder');
-        // listPhrases.push('Where there is tears there is hope');
-        // listPhrases.push('Live Long and Prosper');
-        // listPhrases.push('Have you tried turning it off and on again');
+        listPhrases.push('Well Done is Better Than Well Said');
+        listPhrases.push('Art is an emotion in motion');
+        listPhrases.push('Beauty is in the eye of the beholder');
+        listPhrases.push('Where there are tears there is hope');
+        listPhrases.push('Live Long and Prosper');
+        listPhrases.push('Have you tried turning it off and on again');
         listPhrases.push('veni vidi vici');
         return listPhrases;
-
     }
+
+    /**
+     * Begins game by selecting a random phrase and displaying it in UI
+     * picks new phrase and initiliace new phrase , new Chrono, New Hinter
+     */
+    startGame() {
+        document.getElementById('overlay').style.display = "none";
+        this.activePhrase = this.getRandomPhrases();
+        phrase = new Phrase(this.activePhrase);
+        hint = new Hinthelp(); //hinthelp Class,
+        time = new Chrono; // Chrono Class ,
+        phrase.addPhraseToDisplay();
+        /** 
+         * for  testing // uncomment the next line to see the picked phrase in the console//
+         */
+        // console.log(`the current Phrase is : ${ phrase.phrase }`)
+    }
+
+    /**
+     * picks a entry for a list;
+     */
     getRandomPhrases() {
         let num = Math.floor(Math.random() * this.phrases.length);
         return this.phrases[num];
     }
 
     /**
-     * Begins game by selecting a random phrase and displaying it to user
-     */
-    startGame() {
-        document.getElementById('overlay').style.display = "none";
-        this.activePhrase = this.getRandomPhrases();
-        phrase = new Phrase(this.activePhrase);
-        hint = new Hinthelp();//hinter section
-
-        phrase.addPhraseToDisplay();
-        /** 
-         * for corrector testing// will display the phrase on the console
-         */
-        console.log(phrase)
-    }
-    /**
      * Handles onscreen keyboard button clicks
      * @-param (HTMLButtonElement) button - The clicked button element
      */
-
-    // handleInteraction(button, htmlcode) {
     handleInteraction(button) {
-        ////
+        // preparing the html code to be used for the feed back of the check
         const arr = document.querySelectorAll('.key');
         const trueArr = Array.prototype.slice.call(arr);
+        //next 5 lines will generate an object with letter and it index.to be use for htmlcode array to grab the html tags, DOM Elements.
         const reducer = {};
         for (let i = 0; i < trueArr.length; i += 1) {
             reducer[trueArr[i].firstChild.nodeValue] = i;
         }
-        // console.log(reducer);
         let htmlcode = document.querySelectorAll('.key')[reducer[button]];
-        // console.log(htmlcode)
-        
-        ////
+        //
         htmlcode.disabled = true;
         if (phrase.checkLetter(button)) {
             htmlcode.classList.add('chosen');
@@ -70,7 +73,7 @@ class Game {
             this.checkForWin();
         } else {
             htmlcode.classList.add('wrong');
-            // the removeLife method will automatically call gameOver if player run out of life, that s the only way to loose.
+            // the removeLife method will automatically call gameOver if player run out of life 'this.missed < 4 ', that s the only way to loose in strandard version.
             this.removeLife();
         }
     }
@@ -85,68 +88,44 @@ class Game {
 
         if (allLettersDOMELements.length === shownLettersDOMELements.length) {
             this.gameOver(true);
+            return true;
+        } else {
+            //Did not have to call gameOver, it s called from lost life.
+            //maybe need  refactering,adding gameOver, to be easier in the timed featured.
+            return false;
         }
     }
+
     /**
      * Increases the value of the missed property
      * Removes a life from the scoreboard
      * Checks if player has remaining lives and ends game if player is out
      */
     removeLife() {
-
-        const triesArray = document.getElementsByClassName('tries');
+        const triesArray = document.getElementsByClassName('tries');//the hearts dom element
         this.missed < 4 ? triesArray[this.missed].firstChild.src = "/images/lostHeart.png" : this.gameOver(false);
         this.missed += 1;
     }
+
     /**
      * Displays game over message
      * @-param {boolean} gameWon - Whether or not the user won the game
      */
     gameOver(bool) {
-        // will display the original start screen and update updates the overlay `h1` element with a
-        // friendly win or loss message, and replaces the overlay’s `start` CSS class with
-        // either the `win` or `lose` CSS class.
-
-        document.getElementById('overlay').style.display = "block";
+        let backG = document.querySelector("#overlay");
         let title = document.querySelector("#game-over-message");
-        let backG = document.querySelector("#overlay")
-        if (bool) {
-            title.innerHTML = " NICE !! WELL DONE ";
-            backG.style.background = "linear-gradient( 45deg, blue, red )"
+        let gameChronoDuration = time.msToTime();//will set the end of time for the game see Chrono.js
+        backG.style.display = "block";
+        if (bool) {//if it s a win
+            //gameChronoDuration was set in Chrono.js file, (starting time) - (ending time)
+            title.innerHTML = " NICE !! WELL DONE , the game lasted " + gameChronoDuration;
+            // backG.classList = "win" ; //this was required by the assanement.uncomment it and comment the next line.
+            backG.style.background= "linear-gradient( 45deg, blue, red )"
 
         } else {
-            title.innerHTML = " 🤪 Best Luck next time !"
+            title.innerHTML = " Best Luck next time !";
+            // backG.classList = "lose"; // was required, same as above
             backG.style.background = "linear-gradient( 45deg, black, white )"
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-// Includes a constructor that initializes a missed property set to 0, a phrases property set to an array of five Phrase objects, and an activePhrase property set to null initially
-
-// Phrases added to the game only include letters and spaces
-//////////////////
-// Includes startGame() method that hides the start screen overlay, sets the activePhrase property to a random phrase, and calls the addPhraseToDisplay() method on the active phrase
-
-// Includes getRandomPhrase() method that randomly retrieves one phrase from the phrases array
-
-// Includes handleInteraction() method that:
-
-// Disables the selected letter's onscreen keyboard button
-// If the phrase does not include the guessed letter, the wrong CSS class is added to the selected letter's keyboard button and the removeLife() method is called
-// If the phrase includes the guessed letter, the chosen CSS class is added to the selected letter's keyboard button, the showMatchedLetter() method is called on the phrase, and the checkForWin() method is called. If the player has won the game, the gameOver() method is called
-// Includes checkForWin() method that checks if the player has revealed all of the letters in the active phrase
-
-// Includes a removeLife() method that removes a life from the scoreboard (one of the liveHeart.png images is replaced with a lostHeart.png image), increments the missed property, and if the player has lost the game calls the gameOver() method
-
-// Includes gameOver() method that displays a final "win" or "loss" message by showing the original start screen overlay styled with either the win or lose CSS class

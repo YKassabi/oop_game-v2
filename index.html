@@ -16,6 +16,10 @@
 			<h2 class="title">Phrase Hunter</h2>
 			<h1 id="game-over-message"></h1>
 			<button id="btn__reset">Start Game</button>
+		<div>
+			<button id="button2min">2' Game Chrono</button>
+			<button id="ButtonCapitalCities">E.U Capital Cities</button>
+		</div>
 		</div>
 
 		<div id="banner" class="section">
@@ -73,20 +77,11 @@
 				<li class="tries"><img src="images/liveHeart.png" alt="Heart Icon" height="35" width="30"></li>
 			</ol>
 		</div>
-
-		<div id="hinter" class="section ">
-			<div>
-				<p class="buttonHelp">
-					<a href="#hinter">
-						Hint
-					</a>
-				</p>
-			</div>
-			<div class="displayOption3">
-				<ul></ul>
+		<div id="hinter" class="  section">
+			<div class="displayOption">
+				<!-- <ul></ul> -->
 			</div>
 			<div class="letterhint">
-
 				<p>
 					One letter could be <b>aready revealed !!</b> 50-50 chance!
 					<button class="option1">
@@ -102,10 +97,9 @@
 			</div>
 			<div class="optionFun">
 				<p>
-					No one is keeping score
-					Keep Guessing
+					A free hint, 0 life lost.
 					<button class="option3">
-						Peak
+						Peak! 
 					</button>
 					<hr>
 
@@ -117,12 +111,27 @@
 			</div>
 		</div>
 
+		<div>
+			<p class="buttonHelp">
+				<a href="#hinter">
+					Hint
+				</a>
+			</p>
+		</div>
+		<div>
+			<p class="chrono2minbutton">
+					
+			</p>
+		</div>
+
 	</div>
 
 
 	<noscript>Your browser does not support JavaScript! to play you need to activate javascript </noscript>
 </body>
 
+<script type="text/javascript" src="js/api.js"></script>
+<script type="text/javascript" src="js/Chrono.js"></script>
 <script type="text/javascript" src="js/Hinthelp.js"></script>
 <script type="text/javascript" src="js/Phrase.js"></script>
 <script type="text/javascript" src="js/Game.js"></script>

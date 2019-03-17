@@ -60,7 +60,7 @@ button {
   cursor: pointer;
 }
 
-#btn__reset {
+#btn__reset, #button2min {
 	width: 200px;
 	margin: 0 auto;
 }
@@ -142,7 +142,7 @@ button {
   color: #FFFFFF;
 }
 
-.btn__reset {
+.btn__reset, #button2min {
   padding: 16px;
   margin: 50px auto;
   background: #f7a964;
@@ -153,7 +153,7 @@ button {
   border-right: solid 3px rgba(0, 0, 0, .3)
 }
 
-.btn__reset:active {
+.btn__reset:active,#button2min:active {
   padding: 14px 16px 16px 14px;
   border-bottom: solid 4px rgba(0, 0, 0, 0);
   border-right: solid 3px rgba(0, 0, 0, 0);
@@ -205,17 +205,15 @@ button {
 
 /* custum css */
 .letterhint, .optionFun {
-  border-top: 1px dotted black;
-  background: linear-gradient(white, rgba(0,0,0,.4));
+  border-bottom: 1px dotted black;
+  background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.4));
   margin: 0 auto;
   width: 50%;
   float: left;
   padding: 0px;
-  /* position: absolute; */
-  /* border: 3px solid red; */
 }
 
-.buttonHelp{
+.buttonHelp, .chrono2minbutton{
   border: 2px solid #3a3f58;
   height: 90px;
   width: 90px;
@@ -223,23 +221,27 @@ button {
   position: fixed;
   top:30%;
   padding-top: 2%;
-  right: -30px;
+  right: -20px;
   text-align: center;
   color: #3a3f58;
   font-size: 1.5rem;
 }
-.buttonHelp>a, .buttonHelp>a:hover, .buttonHelp>a:visited {
+.chrono2minbutton{
+  top:50%;
+}
+.buttonHelp>a, .buttonHelp>a:hover, .buttonHelp>a:visited,
+.chrono2minbutton>a,.chrono2minbutton>a:hover, .chrono2minbutton>a:visited{
   text-decoration: none;
   color: #3a3f58;
 }
 
 
-.buttonHelp:hover{
+.buttonHelp:hover,.chrono2minbutton:hover{
   background-color: rgba(0, 0, 0, 0.945);
   color: red;
   cursor: pointer;
   right: -3px;
 }
-.buttonHelp>a:hover{
+.buttonHelp>a:hover, .chrono2minbutton>a:hover{
   color: red;
 }
